@@ -13,6 +13,7 @@ languages = {
     'Hindi': 'hi', 'Portuguese': 'pt', 'Italian': 'it', 'Dutch': 'nl', 
     'Turkish': 'tr', 'Vietnamese': 'vi', 'Thai': 'th', 'Swedish': 'sv', 
     'Norwegian': 'no', 'Danish': 'da', 'Finnish': 'fi'
+    }
 
 # Reverse dictionary to map language codes to language names
 reverse_languages = {code: name for name, code in languages.items()}
