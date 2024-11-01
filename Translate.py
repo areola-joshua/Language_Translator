@@ -8,9 +8,11 @@ st.set_page_config(page_title="Language Detector & Translator", layout="wide")
 # Dictionary of languages with names and codes
 languages = {
     'English': 'en', 'Spanish': 'es', 'French': 'fr', 'German': 'de', 
-    'Chinese': 'zh-cn', 'Arabic': 'ar', 'Russian': 'ru', 'Japanese': 'ja', 
-    'Korean': 'ko', 'Hindi': 'hi'
-}
+    'Chinese (Simplified)': 'zh-cn', 'Chinese (Traditional)': 'zh-tw', 
+    'Arabic': 'ar', 'Russian': 'ru', 'Japanese': 'ja', 'Korean': 'ko', 
+    'Hindi': 'hi', 'Portuguese': 'pt', 'Italian': 'it', 'Dutch': 'nl', 
+    'Turkish': 'tr', 'Vietnamese': 'vi', 'Thai': 'th', 'Swedish': 'sv', 
+    'Norwegian': 'no', 'Danish': 'da', 'Finnish': 'fi'
 
 # Reverse dictionary to map language codes to language names
 reverse_languages = {code: name for name, code in languages.items()}
