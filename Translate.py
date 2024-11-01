@@ -57,7 +57,7 @@ if st.button("Translate Text"):
                 padding: 10px;
                 border: 1px solid #4CAF50;
                 border-radius: 5px;
-                background-color: #f9f9f9;
+                background-color: #000;
                 margin-top: 10px;
             }
             </style>
