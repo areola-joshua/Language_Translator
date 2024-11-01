@@ -12,6 +12,9 @@ languages = {
     'Korean': 'ko', 'Hindi': 'hi'
 }
 
+# Reverse dictionary to map language codes to language names
+reverse_languages = {code: name for name, code in languages.items()}
+
 # Title and description
 st.title("🌍 Language Detector & Translator")
 st.write("Enter any text, and this app will detect the language and translate it into the language of your choice.")
@@ -30,23 +33,26 @@ target_lang_code = languages[target_lang_name]  # Get language code from the dic
 # Detect and Translate Function
 def detect_and_translate(text, target_lang_code):
     # Detect language
-    result_lang = detect(text)
+    result_lang_code = detect(text)
     
     # Translate language
     translator = Translator()
     translate_text = translator.translate(text, dest=target_lang_code).text
 
-    return result_lang, translate_text
+    return result_lang_code, translate_text
 
 # Button to trigger translation
 if st.button("Translate Text"):
     if text:
         # Detect and translate
-        result_lang, translate_text = detect_and_translate(text, target_lang_code)
+        result_lang_code, translate_text = detect_and_translate(text, target_lang_code)
+        
+        # Get the detected language name
+        detected_language_name = reverse_languages.get(result_lang_code, "Unknown Language")
         
         # Display results
         st.subheader("Detected Language:")
-        st.write(result_lang)
+        st.write(detected_language_name)  # Show language name
         
         st.subheader("Translated Text:")
         st.write(translate_text)
