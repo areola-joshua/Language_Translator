@@ -5,6 +5,13 @@ from googletrans import Translator
 # Set page configuration to full screen
 st.set_page_config(page_title="Language Detector & Translator", layout="wide")
 
+# Dictionary of languages with names and codes
+languages = {
+    'English': 'en', 'Spanish': 'es', 'French': 'fr', 'German': 'de', 
+    'Chinese': 'zh-cn', 'Arabic': 'ar', 'Russian': 'ru', 'Japanese': 'ja', 
+    'Korean': 'ko', 'Hindi': 'hi'
+}
+
 # Title and description
 st.title("🌍 Language Detector & Translator")
 st.write("Enter any text, and this app will detect the language and translate it into the language of your choice.")
@@ -13,20 +20,21 @@ st.write("Enter any text, and this app will detect the language and translate it
 text = st.text_area("Enter text here", placeholder="Type your text here...", height=200)
 
 # Target language selection
-target_lang = st.selectbox(
+target_lang_name = st.selectbox(
     "Select target language for translation", 
-    ["es", "fr", "de", "zh-cn", "ja", "ru", "it", "ar", "ko"],  # List popular language codes
-    index=0
+    list(languages.keys()),  # Display language names in dropdown
+    index=1  # Default to Spanish for demonstration
 )
+target_lang_code = languages[target_lang_name]  # Get language code from the dictionary
 
 # Detect and Translate Function
-def detect_and_translate(text, target_lang):
+def detect_and_translate(text, target_lang_code):
     # Detect language
     result_lang = detect(text)
     
     # Translate language
     translator = Translator()
-    translate_text = translator.translate(text, dest=target_lang).text
+    translate_text = translator.translate(text, dest=target_lang_code).text
 
     return result_lang, translate_text
 
@@ -34,7 +42,7 @@ def detect_and_translate(text, target_lang):
 if st.button("Translate Text"):
     if text:
         # Detect and translate
-        result_lang, translate_text = detect_and_translate(text, target_lang)
+        result_lang, translate_text = detect_and_translate(text, target_lang_code)
         
         # Display results
         st.subheader("Detected Language:")
