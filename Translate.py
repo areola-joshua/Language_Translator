@@ -2,7 +2,24 @@ import streamlit as st
 from langdetect import detect
 from googletrans import Translator
 
-# Function to detect and translate text
+# Set page configuration to full screen
+st.set_page_config(page_title="Language Detector & Translator", layout="wide")
+
+# Title and description
+st.title("🌍 Language Detector & Translator")
+st.write("Enter any text, and this app will detect the language and translate it into the language of your choice.")
+
+# Input text from user
+text = st.text_area("Enter text here", placeholder="Type your text here...", height=200)
+
+# Target language selection
+target_lang = st.selectbox(
+    "Select target language for translation", 
+    ["es", "fr", "de", "zh-cn", "ja", "ru", "it", "ar", "ko"],  # List popular language codes
+    index=0
+)
+
+# Detect and Translate Function
 def detect_and_translate(text, target_lang):
     # Detect language
     result_lang = detect(text)
@@ -13,31 +30,20 @@ def detect_and_translate(text, target_lang):
 
     return result_lang, translate_text
 
-# Streamlit app layout
-st.title("Language Detection and Translation App 🌎")
-st.write("This app detects the language of your input text and translates it to the language of your choice.")
-
-# Input text
-text = st.text_area("Enter text to detect and translate", placeholder="Type or paste your text here...")
-
-# Select target language
-languages = {
-    'English': 'en', 'Spanish': 'es', 'French': 'fr', 'German': 'de', 'Chinese': 'zh-cn',
-    'Arabic': 'ar', 'Russian': 'ru', 'Japanese': 'ja', 'Korean': 'ko', 'Hindi': 'hi'
-}
-target_lang = st.selectbox("Choose the target language", options=list(languages.keys()))
-
-# Perform detection and translation when button is clicked
-if st.button("Detect Language and Translate"):
+# Button to trigger translation
+if st.button("Translate Text"):
     if text:
-        result_lang, translated_text = detect_and_translate(text, languages[target_lang])
-        st.write(f"**Detected Language:** {result_lang.capitalize()}")
-        st.write(f"**Translated Text in {target_lang}:**")
-        st.write(translated_text)
+        # Detect and translate
+        result_lang, translate_text = detect_and_translate(text, target_lang)
+        
+        # Display results
+        st.subheader("Detected Language:")
+        st.write(result_lang)
+        
+        st.subheader("Translated Text:")
+        st.write(translate_text)
+        
+        # Celebrate with balloons
+        st.balloons()
     else:
-        st.error("Please enter some text for detection and translation.")
-
-# Add a footer
-st.markdown("---")
-st.markdown("### About")
-st.write("This app uses the `langdetect` library for language detection and `googletrans` for translation. Built with Streamlit.")
+        st.warning("Please enter some text to translate.")
