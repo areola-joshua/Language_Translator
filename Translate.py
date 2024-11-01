@@ -47,16 +47,26 @@ if st.button("Translate Text"):
         # Detect and translate
         result_lang_code, translate_text = detect_and_translate(text, target_lang_code)
         
-        # Get the detected language name
-        detected_language_name = reverse_languages.get(result_lang_code, "Unknown Language")
+        # Get the detected language name or default to the selected target language
+        detected_language_name = reverse_languages.get(result_lang_code, target_lang_name)
         
-        # Display results
-        st.subheader("Detected Language:")
-        st.write(detected_language_name)  # Show language name
-        
-        st.subheader("Translated Text:")
-        st.write(translate_text)
-        
+        # Create a decorated box for output
+        st.markdown("""
+            <style>
+            .output-box {
+                padding: 10px;
+                border: 1px solid #4CAF50;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+                margin-top: 10px;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
+        # Display results in a decorated box
+        st.markdown(f'<div class="output-box"><h4>Detected Language:</h4><p>{detected_language_name}</p></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="output-box"><h4>Translated Text:</h4><p>{translate_text}</p></div>', unsafe_allow_html=True)
+
         # Celebrate with balloons
         st.balloons()
     else:
